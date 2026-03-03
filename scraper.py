@@ -30,14 +30,14 @@ def read_url(url):
 def scrape_dynamic(url):
     result={}
     try:
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument(
+        option = Options()
+        option.add_argument("--headless")
+        option.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/120.0.0.0 Safari/537.36")
         
-        driver = webdriver.Chrome(options=chrome_options)
+        driver = webdriver.Chrome(options=option)
         
     except Exception as e:
         print(f"Failed to start browser: {e}")
@@ -73,7 +73,7 @@ if __name__ == "__main__":
         if not url.startswith(("http://", "https://")):
             url = "https://" + url
         result=read_url(url)
-        if len(result["body"])<50 or len(result["links"])==0:
+        if len(result["body"])<100 or len(result["links"])==0:
             result=scrape_dynamic(url)
         if result:
             print("Title:", result["title"])
